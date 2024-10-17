@@ -1,23 +1,24 @@
-# CS506-Final-Project
+# Flight Delay Prediction Using Weather Data
 
-Description of the project : The objective of this project is to develop a predictive model that forecasts flight delays using weather data. Flight delays are a common issue, and accurate predictions can help airlines, passengers, and airports manage time and resources more efficiently.
+**Objective**:  
+This project aims to develop a predictive model that forecasts flight delays using weather data. Accurately predicting delays can help airlines, passengers, and airports better manage time and resources.
 
-Goals : Our goal is to predict the likelihood of delays for upcoming flights due to weather conditions.
+## Goals:
+We aim to predict flight delay likelihood based on weather conditions, such as precipitation and wind speed.
 
-Data needed :
-- Collect historical flight data on departure/arrival airports, duration of delay, etc.
-- Collect past weather data on temperature, precipitation, wind speed, visibility, and other relevant weather variables.
+## Data Source
+https://www.flightaware.com/
 
+## Data Collection:
+We will gather:
+- **Historical Flight Data**: Including details on departure, arrival airports, and delay durations.
+- **Weather Data**: Temperature, precipitation, wind speed, and visibility data, linked to corresponding flight information.
 
-Data Collection Modeling :
-We can utilize the kmeans clustering model to group flights by weather conditions and the outcome of whether it was delayed or not. 
-Furthermore we can utilize tree modles or XGBoost to improve the accuracy of the predictions. We would take into account weather factors such as precipitation and wind speed.
+## Modeling Approach:
+We plan to use **tree models or XGBoost** to predict delays based on weather conditions. Though clustering like **KMeans** is typically used for unsupervised tasks, we initially planned to explore it for grouping weather patterns that correlate with delays. However, since our data is labeled, we will focus more on supervised learning techniques.
 
+## Visualization:
+We will develop interactive visualizations such as scatter plots to show the relationship between delays and weather conditions, and time graphs to visualize delay trends over time.
 
-Visualizing the data :
-We plan to utilize interactive visualizations such as scatter plots in order to see the connection between flight delay and weather 
-factors. We can use a time graph to see the trend of delayed flights over time. This can also allow us to see the comparison between the 
-predicted delay and the actual delay. 
-
-Test Plan : We will withold 20% of the historical data for testing and train on the remaining 80% of the data. We plan to train on data
-from one period and test on a different period.
+## Test Plan:
+We will split the dataset into 80% training and 20% testing data, training the model on one time period and testing on another to evaluate performance over time.
