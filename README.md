@@ -22,3 +22,5 @@ We will develop interactive visualizations such as scatter plots to show the rel
 
 ## Test Plan:
 We will split the dataset into 80% training and 20% testing data, training the model on one time period and testing on another to evaluate performance over time.
+
+## Distribution of work
