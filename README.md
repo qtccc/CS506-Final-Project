@@ -7,11 +7,13 @@ This project aims to develop a predictive model that forecasts flight delays usi
 We aim to predict flight delay likelihood based on weather conditions, such as precipitation and wind speed.
 
 ## Data Source
-https://www.flightaware.com/
+https://open-meteo.com/ for weather data by (lat,long)
+https://www.transtats.bts.gov/DL_SelectFields.aspx?gnoyr_VQ=FGJ&QO_fu146_anzr=b0-gvzr for flights and delay information, coordinates of departing airport
+
 
 ## Data Collection:
 We will gather:
-- **Historical Flight Data**: Including details on departure, arrival airports, and delay durations.
+- **Historical Flight Data**: Including details on departure, arrival airports, and delay durations. U.S. 2023, 12 months.
 - **Weather Data**: Temperature, precipitation, wind speed, and visibility data, linked to corresponding flight information.
 
 ## Modeling Approach:
@@ -24,3 +26,8 @@ We will develop interactive visualizations such as scatter plots to show the rel
 We will split the dataset into 80% training and 20% testing data, training the model on one time period and testing on another to evaluate performance over time.
 
 ## Distribution of work
+  * Ross: model
+  * Ashkat: model training
+  * Lauren: data collection
+  * Tiffany: data 
+  * Aurora: preprocessing data (e.g. join weather data w/ flight data on (lat,long) coordinate).
