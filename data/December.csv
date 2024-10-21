@@ -1,4 +1,3 @@
-field1,field2,field3,field4,field5,field6,field7,field8,field9,field10,field11,field12,field13
 FlightDate,Reporting_Airline,OriginAirportSeqID,OriginState,DepDelayMinutes,Cancelled,CancellationCode,Diverted,CarrierDelay,WeatherDelay,NASDelay,SecurityDelay,LateAircraftDelay
 12/23/23,OO,1247805,NY,0,0,,0,,,,,
 12/23/23,OO,1247805,NY,0,0,,0,,,,,
