@@ -1,7 +1,10 @@
 # Flight Delay Prediction Using Weather Data
 
 
-**MIDTERM VIDEO**:  
+**MIDTERM VIDEO**:
+    <div class="assignment-card">
+      <h2>Midterm Video</h2>
+      <p> </p>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/2EWXgbAuChQ?si=IrGQamRudoZOl1ic" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 **Objective**:  
