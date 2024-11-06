@@ -2,10 +2,7 @@
 
 
 **MIDTERM VIDEO**:
-    <div class="assignment-card">
-      <h2>Midterm Video</h2>
-      <p> </p>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/2EWXgbAuChQ?si=IrGQamRudoZOl1ic" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+https://youtu.be/2EWXgbAuChQ?si=ilrdndmAVqUP-JZF
 
 **Objective**:  
 This project aims to develop a predictive model that forecasts flight delays using weather data. Accurately predicting delays can help airlines, passengers, and airports better manage time and resources.
