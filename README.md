@@ -1,5 +1,9 @@
 # Flight Delay Prediction Using Weather Data
 
+
+**MIDTERM VIDEO**:
+https://youtu.be/2EWXgbAuChQ?si=ilrdndmAVqUP-JZF
+
 **Objective**:  
 This project aims to develop a predictive model that forecasts flight delays using weather data. Accurately predicting delays can help airlines, passengers, and airports better manage time and resources.
 
