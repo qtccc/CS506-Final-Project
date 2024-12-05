@@ -35,3 +35,4 @@ We will split the dataset into 80% training and 20% testing data, training the m
   * Lauren: data collection
   * Tiffany: data 
   * Aurora: preprocessing data (e.g. join weather data w/ flight data on (lat,long) coordinate).
+
