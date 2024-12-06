@@ -1,9 +1,9 @@
 import pandas as pd
 
 # Paths to files
-filtered_airports_file = '/workspaces/CS506-Final-Project/Filtered_Airport_Info.csv'
-original_dataset_file = '/workspaces/CS506-Final-Project/data/January.csv'  # Example
-output_file = '/workspaces/CS506-Final-Project/Merged_Airport_Data.csv'
+filtered_airports_file = './Filtered_Airport_Info.csv'
+original_dataset_file = '../data/January.csv'  # Example
+output_file = './Merged_Airport_Data.csv'
 
 # Load the filtered airport data
 filtered_airports = pd.read_csv(filtered_airports_file)
