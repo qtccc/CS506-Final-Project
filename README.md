@@ -66,7 +66,7 @@ Forest outperforms XGBoost with a lower MAE and RMSE meaning it is more accurate
 predicting delays. The lower RMSE shows that Random Forest is also better at handling larger 
 errors compared to XGBoost.
 
-![Results](images/results.png)
+![Results](images/Results.png)
 
 ## **MIDTERM VIDEO**: 
 https://youtu.be/2EWXgbAuChQ?si=ilrdndmAVqUP-JZF
