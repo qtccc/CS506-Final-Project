@@ -18,8 +18,9 @@ pandas, numpy, scikit-learn, xgboost, and joblib. These libraries, however will 
 using requirements.txt.
 
 ## Data Source
-https://open-meteo.com/ for weather data by (lat,long)
-https://www.transtats.bts.gov/DL_SelectFields.aspx?gnoyr_VQ=FGJ&QO_fu146_anzr=b0-gvzr
+-https://open-meteo.com/ for weather data by (lat,long)
+
+-https://www.transtats.bts.gov/DL_SelectFields.aspx?gnoyr_VQ=FGJ&QO_fu146_anzr=b0-gvzr
 for flights and delay information, coordinates of departing airport
 
 ## Data Collection:
