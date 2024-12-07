@@ -54,7 +54,7 @@ hour granularity (meaning we only have the date of the flight, not the time), so
 we couldn't take advantage of hourly weather data and have to train the model
 based on daily weather data.
 
-## Results
+## Results:
 Testing the model using our 20% testing data, we got the results "Random Forest MAE 
 on Test Data: 3.61, RMSE: 8.15" and "XGBoost MAE on Test Data: 4.54, RMSE: 10.44". With
 the Random Forest model, this shows that on average the models prediction if off by 3.61
