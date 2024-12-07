@@ -42,6 +42,17 @@ We will develop interactive visualizations such as scatter plots to show the
 relationship between delays and weather conditions, and time graphs to visualize
 delay trends over time.
 
+![Scatterplot](images/Scatterplot.png)
+This scatterplot shows the weather delays vs the departure delays with each dot 
+representing a flight. There is a clear positive trend that higher weather delays
+tend to correspond to higher departure delays and flights with minimal weather
+delays tend to have lower corresponding departure delays as well. There are a few 
+extreme outliers where the departure delay occurs when weather delay is zero and
+these delays can be due to other factors such as operations or crew. This conveys 
+that weather delays have a significant impact on departure delays but are not the
+only factor of delays and the positive correlation shows that weather is an 
+important predictor of days. 
+
 ## Test Plan:
 We will split the dataset of each month into 80% training and 20% testing data,
 training the model on one time period and testing on another to evaluate performance
