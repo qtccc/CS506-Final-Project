@@ -1,0 +1,2 @@
+# Ignore Jupyter Notebook checkpoints in future commits
+.ipynb_checkpoints/
