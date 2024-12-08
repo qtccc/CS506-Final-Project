@@ -1,56 +1,56 @@
-import os
-import subprocess
+name: Python Linting Workflow
 
-def run_flake8(directory):
-    """
-    Run flake8 on all Python files in the directory to identify issues.
-    """
-    print("Running flake8...")
-    try:
-        result = subprocess.run(["flake8", directory], text=True, capture_output=True)
-        if result.returncode == 0:
-            print("No issues found by flake8.")
-        else:
-            print("flake8 issues detected:")
-            print(result.stdout)
-        return result.stdout
-    except FileNotFoundError:
-        print("flake8 is not installed. Please install it using `pip install flake8`.")
-        exit(1)
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
-def fix_with_autopep8(directory):
-    """
-    Run autopep8 to fix issues identified by flake8.
-    """
-    print("Fixing issues with autopep8...")
-    for root, _, files in os.walk(directory):
-        for file in files:
-            if file.endswith(".py"):
-                filepath = os.path.join(root, file)
-                try:
-                    subprocess.run(["autopep8", "--in-place", "--aggressive", "--aggressive", filepath], check=True)
-                    print(f"Formatted: {filepath}")
-                except subprocess.CalledProcessError as e:
-                    print(f"Failed to format {filepath}: {e}")
-    print("Autopep8 formatting completed.")
+jobs:
+  lint-and-fix:
+    runs-on: ubuntu-latest
 
-def main():
-    """
-    Main workflow to check and fix linting issues.
-    """
-    project_directory = "."  # Set this to your project directory
-    print("Starting the linting and fixing workflow...")
-    
-    # Step 1: Run flake8 to identify issues
-    issues = run_flake8(project_directory)
-    
-    # Step 2: Fix issues using autopep8
-    if issues:
-        fix_with_autopep8(project_directory)
-        print("Re-checking with flake8 after autopep8 fixes...")
-        run_flake8(project_directory)
-    else:
-        print("No fixes needed.")
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
 
-if __name__ == "__main__":
-    main()
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install flake8 autopep8
+
+    - name: Run flake8 to check for linting issues
+      run: |
+        echo "Running flake8 to check for linting issues..."
+        flake8 . || true
+
+    - name: Auto-fix issues with autopep8
+      run: |
+        echo "Running autopep8 to fix linting issues..."
+        autopep8 --in-place --recursive --aggressive --aggressive .
+
+    - name: Re-run flake8 to verify
+      run: |
+        echo "Re-checking with flake8 after fixes..."
+        flake8 . || true
+
+    - name: Commit and push fixes (if any)
+      if: github.ref == 'refs/heads/main'
+      run: |
+        echo "Checking for changes after autopep8..."
+        git config --global user.name "github-actions"
+        git config --global user.email "github-actions@users.noreply.github.com"
+        git add .
+        if ! git diff --cached --exit-code; then
+          git commit -m "Auto-fix linting issues with autopep8"
+          git push
+        else
+          echo "No changes to commit."
+        fi
