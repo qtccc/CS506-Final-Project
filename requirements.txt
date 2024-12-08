@@ -9,3 +9,5 @@ python-Levenshtein
 openmeteo-requests
 requests-cache
 retry-requests
+Flask==3.1.0
+
