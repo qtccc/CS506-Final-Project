@@ -67,4 +67,4 @@ print(f"Matched airport data with coordinates saved to: {output_file}")
 # Save unmatched rows for inspection
 unmatched = merged_data[merged_data['Latitude'].isna()]
 unmatched.to_csv('./Unmatched_Airports.csv', index=False)
-print(f"Unmatched airports saved to: ./Unmatched_Airports.csv")
+print("Unmatched airports saved to: ./Unmatched_Airports.csv")
