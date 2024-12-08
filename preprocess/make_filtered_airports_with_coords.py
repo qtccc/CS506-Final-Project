@@ -13,29 +13,35 @@ columns = [
     "Type", "Source"
 ]
 openflights_data = pd.read_csv(openflights_file, header=None, names=columns)
-filtered_airports['NormalizedDescription'] = ( # normalize for better matching
+
+filtered_airports['NormalizedDescription'] = (
     filtered_airports['Description'].str.split(':').str[-1]
     .str.strip().str.lower()
-)
-openflights_data['NormalizedAirportName'] = \
-openflights_data['AirportName'].str.strip().str.lower()
+)  # Normalize for better matching
+openflights_data['NormalizedAirportName'] = openflights_data['AirportName'].str.strip().str.lower()
 
 # For debugging
-print("Filtered Airport Names:",
-      filtered_airports['NormalizedDescription'].unique()[:10])
-print("OpenFlights Airport Names:",
-      openflights_data['NormalizedAirportName'].unique()[:10])
+print(
+    "Filtered Airport Names:",
+    filtered_airports['NormalizedDescription'].unique()[:10]
+)
+print(
+    "OpenFlights Airport Names:",
+    openflights_data['NormalizedAirportName'].unique()[:10]
+)
+
 
 # Fuzzy matching to align names
 def find_best_match(description, airport_names):
     match, score = process.extractOne(description, airport_names)
     return match if score > 80 else None
 
+
 openflights_airport_names = openflights_data['NormalizedAirportName'].tolist()
-filtered_airports['MatchedAirportName'] = \
-filtered_airports['NormalizedDescription'].apply(
+filtered_airports['MatchedAirportName'] = filtered_airports['NormalizedDescription'].apply(
     lambda x: find_best_match(x, openflights_airport_names)
 )
+
 merged_data = pd.merge(
     filtered_airports,
     openflights_data,
@@ -44,14 +50,14 @@ merged_data = pd.merge(
     right_on='NormalizedAirportName'
 )
 
-########## Handle NY LaGuardia outlier ##########
+# Handle NY LaGuardia outlier
 # Find the unmatched row for "NY LaGuardia"
 unmatched_rows = merged_data[merged_data['Latitude'].isna()]
 # Manually update the coordinates for "NY LaGuardia"
-merged_data.loc[merged_data['Description'].str.contains(
-    "LaGuardia", case=False, na=False),
-                ['Latitude', 'Longitude']] = [40.77719879, -73.87259674]
-########## Handle NY LaGuardia outlier ##########
+merged_data.loc[
+    merged_data['Description'].str.contains("LaGuardia", case=False, na=False),
+    ['Latitude', 'Longitude']
+] = [40.77719879, -73.87259674]
 
 result = merged_data[["SeqID", "Description", "Latitude", "Longitude"]]
 result.to_csv(output_file, index=False)
