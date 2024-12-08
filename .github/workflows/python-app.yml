@@ -1,4 +1,4 @@
-name: Python Tests
+name: Lint and Test
 
 on:
   push:
@@ -9,37 +9,29 @@ on:
       - main
 
 jobs:
-  test:
+  lint-and-test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+    - name: Checkout repository
+      uses: actions/checkout@v3
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.12'
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9' # Specify the Python version you are using
 
-      - name: Clean up old virtual environment
-        run: rm -rf .venv
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install flake8 pytest
 
-      - name: Debug Python and venv
-        run: |
-          which python3
-          python3 --version
-          python3 -m ensurepip
-          python3 -m venv --help
+    - name: Run linting
+      run: |
+        echo "Running flake8 for linting..."
+        flake8 . --ignore=E203,E266,E501 --max-line-length=88 --show-source --statistics
 
-      - name: Install dependencies
-        run: |
-          python3 -m venv .venv || python -m venv .venv
-          . .venv/bin/activate
-          pip install --upgrade pip
-          pip install -r requirements.txt
-
-      - name: Run linting
-        run: . .venv/bin/activate && make lint
-
-      - name: Run tests
-        run: . .venv/bin/activate && make test
+    - name: Run tests
+      run: |
+        echo "Running tests with pytest..."
+        pytest tests/ --disable-warnings
