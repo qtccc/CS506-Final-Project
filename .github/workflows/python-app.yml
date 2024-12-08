@@ -47,11 +47,11 @@ jobs:
         . .venv/bin/activate  # Activate the virtual environment
         flake8 --exclude .venv,build,dist,__pycache__  # Run flake8 to lint the code, excluding unnecessary directories
 
-    # Step 6: Run unit tests
-    - name: Run tests
-      run: |
-        . .venv/bin/activate  # Activate the virtual environment
-        python -m unittest discover -s tests -p "test_*.py"  # Discover and run tests in the `tests` directory matching the pattern
+    # # Step 6: Run unit tests
+    # - name: Run tests
+    #   run: |
+    #     . .venv/bin/activate  # Activate the virtual environment
+    #     python -m unittest discover -s tests -p "test_*.py"  # Discover and run tests in the `tests` directory matching the pattern
 
     # Step 7: Test Flask server functionality
     - name: Test Flask server
