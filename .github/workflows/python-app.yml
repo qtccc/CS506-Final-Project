@@ -1,4 +1,4 @@
-name: Python App
+name: Python Flask App CI/CD
 
 on:
   push:
@@ -8,39 +8,86 @@ on:
     branches:
       - main
 
-permissions:
-  contents: write
-
 jobs:
-  lint-and-fix:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Check out code
+    # Checkout the repository
+    - name: Checkout repository
       uses: actions/checkout@v3
 
-    - name: Set up Python
+    # Set up Python 3.12
+    - name: Set up Python 3.12
       uses: actions/setup-python@v4
       with:
-        python-version: '3.12'
+        python-version: 3.12  # Explicitly use Python 3.12
 
+    # Cache pip dependencies
+    - name: Cache pip
+      uses: actions/cache@v3
+      with:
+        path: .venv
+        key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+
+    # Create virtual environment and install dependencies
     - name: Install dependencies
-      run: pip install flake8 autopep8
-
-    - name: Run flake8
-      run: flake8 .
-
-    - name: Auto-fix issues with autopep8
-      run: autopep8 --in-place --aggressive --aggressive --recursive .
-
-    - name: Commit and Push changes
       run: |
-        echo "Checking for changes after autopep8..."
-        git config --global user.name "github-actions"
-        git config --global user.email "github-actions@users.noreply.github.com"
-        git add .
-        if ! git diff --cached --exit-code; then
-          git commit -m "Auto-fix linting issues with autopep8"
-          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }} HEAD:main
-        else
-          echo "No changes to commit."
+        python3.12 -m venv .venv  # Explicitly use Python 3.12
+        . .venv/bin/activate
+        pip install --upgrade pip
+        pip install -r requirements.txt
+
+    # Lint the code
+    - name: Lint code
+      run: |
+        . .venv/bin/activate
+        make lint
+
+    # Run tests
+    - name: Run tests
+      run: |
+        . .venv/bin/activate
+        make test
+
+    # Test Flask server functionality
+    - name: Test Flask server
+      env:
+        FLASK_APP: app.py
+        FLASK_ENV: development
+      run: |
+        . .venv/bin/activate
+        make run &
+        sleep 10  # Allow the server to start
+        curl -f http://127.0.0.1:3000/get_airports || exit 1
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+
+    steps:
+    # Checkout the repository
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    # Set up Python 3.12
+    - name: Set up Python 3.12
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.12
+
+    # Install dependencies
+    - name: Install dependencies
+      run: |
+        python3.12 -m venv .venv  # Explicitly use Python 3.12
+        . .venv/bin/activate
+        pip install --upgrade pip
+        pip install -r requirements.txt
+
+    # Deploy application
+    - name: Deploy Flask App
+      run: |
+        echo "Custom deployment logic here"
