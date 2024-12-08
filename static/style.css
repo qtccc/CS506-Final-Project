@@ -1,0 +1,99 @@
+/* Import Comfortaa font */
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;700&display=swap');
+
+/* General styling */
+body {
+    font-family: 'Comfortaa', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+h1 {
+    text-align: center;
+    font-size: 2.8em;
+    color: #2c3e50;
+    margin-top: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column; /* Arrange rows vertically */
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    gap: 15px; /* Add spacing between rows */
+}
+
+.form-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px; /* Space between label and dropdown */
+    width: 100%; /* Full width */
+    max-width: 500px; /* Optional: Constrain the row width */
+}
+
+label {
+    font-size: 1.2em;
+    font-weight: 600;
+    white-space: nowrap; /* Prevent text wrapping */
+}
+
+select {
+    padding: 7px; /* Adjust padding inside the dropdown */
+    font-size: 1em; /* Font size for better readability */
+    border: 1px solid #ccc; /* Border styling */
+    border-radius: 5px; /* Rounded corners */
+    width: 100%; /* Set a relative width */
+    max-width: 600px; /* Maximum width of the dropdown */
+    height: 40px; /* Optional: Adjust height */
+    text-overflow: ellipsis; /* Handle long text with ellipsis if it overflows */
+    white-space: nowrap; /* Prevent wrapping */
+    overflow: hidden; /* Prevent text overflow */
+}
+
+
+button {
+    margin-top: 20px; /* Add spacing between the dropdowns and the button */
+    background-color: #23adad;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #23adadd8;
+}
+
+h2 {
+    text-align: center;
+    font-size: 2em;
+    margin-top: 20px;
+    color: #17a2b8;
+    font-weight: 400;
+}
+
+/* Container for spacing and centering */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    border-radius: 10px;
+    margin-top: 50px;
+}
+
+footer {
+    text-align: center;
+    margin-top: 30px;
+    color: #666;
+    font-size: 0.9em;
+    font-weight: 300;
+}

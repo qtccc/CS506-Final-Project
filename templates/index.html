@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airport Delay Predictor</title>
+    <!-- Import Comfortaa font -->
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Airport Delay Predictor</h1>
+        <form id="delay-form">
+            <div class="form-row">
+                <label for="airport">Select Airport:</label>
+                <select id="airport" name="airport"></select>
+            </div>
+        
+            <div class="form-row">
+                <label for="month">Select Month:</label>
+                <select id="month" name="month">
+                    <option value="January">January</option>
+                    <option value="February">February</option>
+                    <option value="March">March</option>
+                    <option value="April">April</option>
+                    <option value="May">May</option>
+                    <option value="June">June</option>
+                    <option value="July">July</option>
+                    <option value="August">August</option>
+                    <option value="September">September</option>
+                    <option value="October">October</option>
+                    <option value="November">November</option>
+                    <option value="December">December</option>
+                </select>
+            </div>
+        
+            <button type="button" id="submit">Get Delay Likelihood</button>
+        </form>
+
+        <h2 id="result"></h2>
+    </div>
+
+    <footer>
+        © 2024 Airport Delay Predictor. Built for CS506 Final Project.
+    </footer>
+
+    <script src="./static/script.js"></script>
+</body>
+</html>
