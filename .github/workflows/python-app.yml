@@ -19,11 +19,21 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.x'
+          python-version: '3.12'
+
+      - name: Clean up old virtual environment
+        run: rm -rf .venv
+
+      - name: Debug Python and venv
+        run: |
+          which python3
+          python3 --version
+          python3 -m ensurepip
+          python3 -m venv --help
 
       - name: Install dependencies
         run: |
-          python3 -m venv .venv
+          python3 -m venv .venv || python -m venv .venv
           . .venv/bin/activate
           pip install --upgrade pip
           pip install -r requirements.txt
