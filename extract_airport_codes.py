@@ -37,3 +37,4 @@ with open(output_file, 'w') as json_file:
     json.dump(sorted_airport_codes, json_file)
 
 print(f'Successfully saved {len(sorted_airport_codes)} unique airport codes to {output_file}')
+
