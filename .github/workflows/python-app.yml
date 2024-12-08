@@ -13,17 +13,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # Checkout the repository
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    # Set up Python 3.12
     - name: Set up Python 3.12
       uses: actions/setup-python@v4
       with:
-        python-version: 3.12  # Explicitly use Python 3.12
+        python-version: 3.12
 
-    # Cache pip dependencies
     - name: Cache pip
       uses: actions/cache@v3
       with:
@@ -32,35 +29,31 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-pip-
 
-    # Create virtual environment and install dependencies
     - name: Install dependencies
       run: |
-        python3.12 -m venv .venv  # Explicitly use Python 3.12
+        python3.12 -m venv .venv
         . .venv/bin/activate
         pip install --upgrade pip
-        pip install -r requirements.txt
+        pip install -r requirements.txt flake8 black
 
-    # Lint the code
     - name: Lint code
       run: |
         . .venv/bin/activate
-        make lint
+        flake8 --exclude .venv,build,dist,__pycache__
 
-    # Run tests
     - name: Run tests
       run: |
         . .venv/bin/activate
-        make test
+        python -m unittest discover -s tests
 
-    # Test Flask server functionality
     - name: Test Flask server
       env:
         FLASK_APP: app.py
         FLASK_ENV: development
       run: |
         . .venv/bin/activate
-        make run &
-        sleep 10  # Allow the server to start
+        flask run --host=0.0.0.0 --port=3000 &
+        sleep 10
         curl -f http://127.0.0.1:3000/get_airports || exit 1
 
   deploy:
@@ -69,25 +62,21 @@ jobs:
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
 
     steps:
-    # Checkout the repository
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    # Set up Python 3.12
     - name: Set up Python 3.12
       uses: actions/setup-python@v4
       with:
         python-version: 3.12
 
-    # Install dependencies
     - name: Install dependencies
       run: |
-        python3.12 -m venv .venv  # Explicitly use Python 3.12
+        python3.12 -m venv .venv
         . .venv/bin/activate
         pip install --upgrade pip
         pip install -r requirements.txt
 
-    # Deploy application
     - name: Deploy Flask App
       run: |
         echo "Custom deployment logic here"
