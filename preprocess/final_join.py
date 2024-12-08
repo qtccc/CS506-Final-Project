@@ -24,7 +24,9 @@ for month_file in os.listdir(data_dir):
         flight_df = pd.read_csv(month_path)
         
         # Convert FlightDate to datetime and ensure it's timezone-naive
-        flight_df['FlightDate'] = pd.to_datetime(flight_df['FlightDate'], format='%m/%d/%y', errors='coerce')
+        flight_df['FlightDate'] = pd.to_datetime(
+            flight_df['FlightDate'], format='%m/%d/%y', errors='coerce'
+        )
         
         # Perform the join on both `OriginAirportSeqID` and `date`
         merged_df = pd.merge(
