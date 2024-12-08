@@ -24,11 +24,12 @@ jobs:
       - name: Install dependencies
         run: |
           python3 -m venv .venv
-          .venv/bin/pip install --upgrade pip
-          .venv/bin/pip install -r requirements.txt
+          . .venv/bin/activate
+          pip install --upgrade pip
+          pip install -r requirements.txt
 
       - name: Run linting
-        run: make lint
+        run: . .venv/bin/activate && make lint
 
       - name: Run tests
-        run: make test
+        run: . .venv/bin/activate && make test
