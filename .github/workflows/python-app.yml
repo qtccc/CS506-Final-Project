@@ -1,37 +1,56 @@
-name: Lint and Test
+import os
+import subprocess
 
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+def run_flake8(directory):
+    """
+    Run flake8 on all Python files in the directory to identify issues.
+    """
+    print("Running flake8...")
+    try:
+        result = subprocess.run(["flake8", directory], text=True, capture_output=True)
+        if result.returncode == 0:
+            print("No issues found by flake8.")
+        else:
+            print("flake8 issues detected:")
+            print(result.stdout)
+        return result.stdout
+    except FileNotFoundError:
+        print("flake8 is not installed. Please install it using `pip install flake8`.")
+        exit(1)
 
-jobs:
-  lint-and-test:
-    runs-on: ubuntu-latest
+def fix_with_autopep8(directory):
+    """
+    Run autopep8 to fix issues identified by flake8.
+    """
+    print("Fixing issues with autopep8...")
+    for root, _, files in os.walk(directory):
+        for file in files:
+            if file.endswith(".py"):
+                filepath = os.path.join(root, file)
+                try:
+                    subprocess.run(["autopep8", "--in-place", "--aggressive", "--aggressive", filepath], check=True)
+                    print(f"Formatted: {filepath}")
+                except subprocess.CalledProcessError as e:
+                    print(f"Failed to format {filepath}: {e}")
+    print("Autopep8 formatting completed.")
 
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+def main():
+    """
+    Main workflow to check and fix linting issues.
+    """
+    project_directory = "."  # Set this to your project directory
+    print("Starting the linting and fixing workflow...")
+    
+    # Step 1: Run flake8 to identify issues
+    issues = run_flake8(project_directory)
+    
+    # Step 2: Fix issues using autopep8
+    if issues:
+        fix_with_autopep8(project_directory)
+        print("Re-checking with flake8 after autopep8 fixes...")
+        run_flake8(project_directory)
+    else:
+        print("No fixes needed.")
 
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.9' # Specify the Python version you are using
-
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install flake8 pytest
-
-    - name: Run linting
-      run: |
-        echo "Running flake8 for linting..."
-        flake8 . --ignore=E203,E266,E501 --max-line-length=88 --show-source --statistics
-
-    - name: Run tests
-      run: |
-        echo "Running tests with pytest..."
-        pytest tests/ --disable-warnings
+if __name__ == "__main__":
+    main()
