@@ -1,4 +1,4 @@
-name: Python Linting Workflow
+name: Python App
 
 on:
   push:
@@ -8,41 +8,32 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write
+
 jobs:
   lint-and-fix:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
+    - name: Check out code
       uses: actions/checkout@v3
 
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: '3.x'
+        python-version: '3.12'
 
     - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install flake8 autopep8
+      run: pip install flake8 autopep8
 
-    - name: Run flake8 to check for linting issues
-      run: |
-        echo "Running flake8 to check for linting issues..."
-        flake8 . || true
+    - name: Run flake8
+      run: flake8 .
 
     - name: Auto-fix issues with autopep8
-      run: |
-        echo "Running autopep8 to fix linting issues..."
-        autopep8 --in-place --recursive --aggressive --aggressive .
+      run: autopep8 --in-place --aggressive --aggressive --recursive .
 
-    - name: Re-run flake8 to verify
-      run: |
-        echo "Re-checking with flake8 after fixes..."
-        flake8 . || true
-
-    - name: Commit and push fixes (if any)
-      if: github.ref == 'refs/heads/main'
+    - name: Commit and Push changes
       run: |
         echo "Checking for changes after autopep8..."
         git config --global user.name "github-actions"
@@ -50,7 +41,6 @@ jobs:
         git add .
         if ! git diff --cached --exit-code; then
           git commit -m "Auto-fix linting issues with autopep8"
-          git push
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }} HEAD:main
         else
           echo "No changes to commit."
-        fi
