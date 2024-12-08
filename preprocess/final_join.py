@@ -19,15 +19,15 @@ os.makedirs(output_dir, exist_ok=True)
 for month_file in os.listdir(data_dir):
     if month_file.endswith(".csv"):
         month_path = os.path.join(data_dir, month_file)
-        
+
         # Load flight data
         flight_df = pd.read_csv(month_path)
-        
+
         # Convert FlightDate to datetime and ensure it's timezone-naive
         flight_df['FlightDate'] = pd.to_datetime(
             flight_df['FlightDate'], format='%m/%d/%y', errors='coerce'
         )
-        
+
         # Perform the join on both `OriginAirportSeqID` and `date`
         merged_df = pd.merge(
             flight_df,
@@ -36,7 +36,7 @@ for month_file in os.listdir(data_dir):
             left_on=["OriginAirportSeqID", "FlightDate"],
             right_on=["SeqID", "date"]
         )
-        
+
         # Save the merged data to a new file
         output_path = os.path.join(output_dir, month_file)
         merged_df.to_csv(output_path, index=False)
