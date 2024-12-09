@@ -9,7 +9,10 @@ and airports better manage time and resources.
 We aim to predict flight delay likelihood based on weather conditions, such as
 precipitation and wind speed.
 
-## How to build and run
+## How to build and run : 
+Clone the repository and then install dependecnies using `make install` to set up 
+the enviornment. Then to run the Flask application, run `make run` to access the
+application in the browser at `http://127.0.0.1:3000` .
 
 ## Supported Enviornments
 Oue program is compatible with Python 3.8 or later. The supported operating systems would be
@@ -78,6 +81,14 @@ predicting delays. The lower RMSE shows that Random Forest is also better at han
 errors compared to XGBoost.
 
 ![Results](images/Results.png)
+
+The below are results shown by our interactive tool. Users are able to select an airport
+and select a month to display the likelihood of a delay and then the likelihood a delay 
+due to weather reasons. We see in this example below that the delay likelihood is about 17
+minutes which is a significant difference from the weather delay likelihood meaning that the
+delay is likely due to other reasons other than weather
+
+![Interactive](images/Interactive.png)
 
 ## **MIDTERM VIDEO**: 
 https://youtu.be/2EWXgbAuChQ?si=ilrdndmAVqUP-JZF
