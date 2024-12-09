@@ -1,6 +1,6 @@
 # Flight Delay Prediction Using Weather Data
 
-**Objective**:  
+** Objective:  
 This project aims to develop a predictive model that forecasts flight delays
 using weather data. Accurately predicting delays can help airlines, passengers,
 and airports better manage time and resources.
@@ -60,6 +60,21 @@ important predictor of days.
 We will split the dataset of each month into 80% training and 20% testing data,
 training the model on one time period and testing on another to evaluate performance
 over time.
+
+## Description of data processing and modeling: 
+The flight data is aggregated from multiple CSV files using Python's glob and pandas.
+All the datasets are concatenated into a single Dataframe. Through data preprocessing, 
+any missing values were handled therefore if a column was empty it was replaced with a
+zero. Rows with missing DepDelayMinutes were also removed. Furthermore, columns such as 
+reporting airlines and origin state are converted into numerical features using one-hot
+encoding. Non relevant columns are then dropped and the target variable becomes more 
+defined. The numerical features are then prepared for machine learning models such as
+Random Forest and XGBoost.
+
+For the modeling, the two machine learning models to predict departure delay are
+Random Forest Regressor whhich shows the non linear relationship between weather and
+the departure delay as well as providing a baseline for comparison. The second model is the
+XGBoost Regressor in which a gradient boosted tree model is used for efficency and accuracy. 
 
 ## ./preprocess
 Run `make` inside this directory to make `./processed_data` which flight delay
