@@ -1,5 +1,5 @@
 # Variables
-PYTHON = python
+PYTHON = python3
 PIP = pip
 FLASK_APP = app.py
 FLASK_ENV = development
